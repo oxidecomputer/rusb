@@ -178,8 +178,9 @@ fn main() {
         .unwrap_or_default();
 
     let is_freebsd = std::env::var("CARGO_CFG_TARGET_OS") == Ok("freebsd".into());
+    let is_illumos = std::env::var("CARGO_CFG_TARGET_OS") == Ok("illumos".into());
 
-    if (!is_freebsd && cfg!(feature = "vendored")) || !find_libusb_pkg(statik) {
+    if ((!is_freebsd && !is_illumos) && cfg!(feature = "vendored")) || !find_libusb_pkg(statik) {
         make_source();
     }
 }
